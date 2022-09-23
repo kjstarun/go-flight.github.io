@@ -31,5 +31,5 @@ Redirected UI:
 6. At last, the book now button will be displayed.
 
 
-The below feature will be continued in the Version - 2.
+The below feature will be continued in the Version - 2 later.
 - On clicking the book now button, the input form for passenger details will be displayed.
