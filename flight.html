@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Search</title>
+    <style>
+        * {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            height: 100%;
+            /* background-color: rgb(232, 233, 241); */
+        }
+
+        label {
+            display: block;
+            padding: 5px 5px 0 0;
+            margin: 10px 10px 0 10px;
+        }
+
+        .parent-container {
+            /* background-color: bisque; */
+            height: 100%;
+            background-color: rgb(37, 57, 150);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-container {
+            /* background-color: black; */
+            position: sticky;
+            top: 0;
+            background-color: rgb(37, 57, 150);
+            height: 100px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .result-info-container {
+            position: sticky;
+            /* margin-top: 100px; */
+            top: 80px;
+            height: 100px;
+            /* background-color: aqua; */
+            background-color: #fff;
+            /* background-color: rgb(37, 57, 150); */
+            color: #000;
+            width: 80%;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .search-quote {
+            padding: 10px;
+            font-size: 20px;
+        }
+
+        .user-search-info-container {
+            /* background-color: black; */
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            height: 125px;
+            width: 80%;
+            border-radius: 15px;
+        }
+
+        .titles {
+            font-weight: lighter;
+            font-size: 15px;
+        }
+
+        .answers {
+            font-weight: bolder;
+            font-size: 17px;
+        }
+
+        .flights-container {
+            background-color: rgba(255, 255, 255, 0.872);
+            width: 80%;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .flight-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .flights-container:hover {
+            transition: width 1s;
+            width: 82%;
+        }
+
+        .choose-flight {
+            height: 30px;
+            background-color: darkblue;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .choose-flight:hover {
+            cursor: pointer;
+            background-color: rgba(23, 23, 163, 0.856);
+        }
+
+        .footer-container {
+            color: #fff;
+            width: 80%;
+            padding: 20px;
+            margin-bottom: 8px;
+            border-top: 1px solid grey;
+            font-weight: bold;
+            font-size: large;
+        }
+
+        /* hamburger menu */
+
+        .hamburger-menu {
+            /* background-color: aqua; */
+            /* padding: 5px; */
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 5px 0 20px 20px;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        .hamburger-menu:hover {
+            color: rgba(255, 255, 255, 0.813);
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #fff;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .sidenav a {
+            padding: 10px 10px 10px 40px;
+            text-decoration: none;
+            font-size: 25px;
+            color: rgba(0, 0, 0, 0.925);
+            display: block;
+            transition: 0.3s;
+            font-size: medium;
+        }
+
+        .sidenav a:hover {
+            color: rgba(0, 0, 139, 0.468);
+        }
+
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        .ham-logo {
+            padding-left: 50px;
+        }
+
+        .invalid-details {
+            background-color: rgba(255, 255, 255, 0.872);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 50vh;
+            width: 80%;
+            gap: 10px;
+            border-radius: 20px;
+        }
+
+        .invalid-text {
+            font-size: 40px;
+            color: red;
+            font-weight: bolder;
+        }
+
+        .invalid-quote {
+            font-size: 25px;
+            color: red;
+            font-weight: lighter;
+        }
+
+        .reload-btn {
+            text-decoration: none;
+            text-align: center;
+            padding: 10px;
+            background-color: darkblue;
+            color: #fff;
+            margin-top: 30px;
+            border-radius: 5px;
+        }
+
+        .reload-btn:hover {
+            background-color: rgba(23, 23, 163, 0.856);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="viewport"></div>
+
+    <!-- <button id="pdfButton"><b>Click here to Generate PDF</b></button> -->
+
+
+</body>
+
+<script>
+
+
+    // flightset for chennai to coimbatore
+
+    const route_401 = [
+        {
+            f_no: "6E7089",
+            f_dt: "16.00",
+            f_at: "17.00",
+            f_price: 3789
+        },
+        {
+            f_no: "6E7090",
+            f_dt: "12.00",
+            f_at: "13.00",
+            f_price: 3586
+        },
+        {
+            f_no: "6E778",
+            f_dt: "09.00",
+            f_at: "10.00",
+            f_price: 3789
+        },
+        {
+            f_no: "6E678",
+            f_dt: "21.00",
+            f_at: "22.00",
+            f_price: 6782
+        },
+        {
+            f_no: "6E8907",
+            f_dt: "10.30",
+            f_at: "11.30",
+            f_price: 3788
+        },
+        {
+            f_no: "6E6543",
+            f_dt: "22.59",
+            f_at: "23.59",
+            f_price: 7789
+        },
+    ];
+
+    // flightset for delhi to bangalore
+
+    const route_411 = [
+        {
+            f_no: "6E7589",
+            f_dt: "17.00",
+            f_at: "19.45",
+            f_price: 5789
+        },
+        {
+            f_no: "6E9050",
+            f_dt: "12.00",
+            f_at: "14.45",
+            f_price: 6783
+        },
+        {
+            f_no: "6E579",
+            f_dt: "09.00",
+            f_at: "11.45",
+            f_price: 6748
+        },
+        {
+            f_no: "6E598",
+            f_dt: "21.00",
+            f_at: "23.45",
+            f_price: 8907
+        },
+        {
+            f_no: "6E9905",
+            f_dt: "10.30",
+            f_at: "13.15",
+            f_price: 7862
+        },
+        {
+            f_no: "6E6593",
+            f_dt: "20.59",
+            f_at: "23.44",
+            f_price: 7890
+        },
+        {
+            f_no: "6E6513",
+            f_dt: "19.59",
+            f_at: "22.44",
+            f_price: 9090
+        },
+    ];
+
+    const data = window.location.search;
+    // alert(data);
+
+    const param = new URLSearchParams(data);
+
+    const from = param.get("fcity");
+    const to = param.get("lcity");
+    const date = param.get("tdate");
+    const count = param.get("pcount");
+
+    const viewportContainer = document.getElementById("viewport");
+
+    // creating the parent container
+
+    const parentContainer = document.createElement("div");
+    parentContainer.className = "parent-container";
+
+    // creating the hamburger menu parent
+
+    const hamburgerMenuContainer = document.createElement("div");
+    hamburgerMenuContainer.className = "sidenav";
+    hamburgerMenuContainer.setAttribute = ("id", "mySidenav");
+
+    // creating the header container
+
+    const headerContainer = document.createElement("header");
+    headerContainer.className = "header-container";
+
+    const hamburgerMenuLogoContainer = document.createElement("span");
+    hamburgerMenuLogoContainer.onclick = function () { openNav() };
+    hamburgerMenuLogoContainer.className = "hamburger-menu";
+    hamburgerMenuLogoContainer.innerHTML = "&#9776";
+
+    const mainLogoContainer = document.createElement("img");
+    mainLogoContainer.src = "https://upload.wikimedia.org/wikipedia/commons/archive/6/69/20120303141352%21IndiGo_Airlines_logo.svg";
+    mainLogoContainer.style.height = "80px";
+    hamburgerMenuLogoContainer.appendChild(mainLogoContainer);
+
+    // appending to head 
+
+    headerContainer.appendChild(hamburgerMenuLogoContainer);
+    // headerContainer.appendChild(mainLogoContainer);
+
+    const resultInfoContainer = document.createElement("div");
+    resultInfoContainer.className = "result-info-container";
+
+    const resultHeadContainer = document.createElement("p");
+    resultHeadContainer.className = "search-quote";
+    resultHeadContainer.innerText = "Your flight search results based on your search below.";
+
+    const userSearchInfoContainer = document.createElement("div");
+    userSearchInfoContainer.className = "user-search-info-container";
+
+
+    function userdata(from, to, date, count) {
+
+        // from city
+
+        const fromCityContainer = document.createElement("div");
+
+        const fromCityTitle = document.createElement("span");
+        fromCityTitle.innerText = "From: ";
+        fromCityTitle.className = "titles";
+
+        const fromCityAnswer = document.createElement("span");
+        fromCityAnswer.innerText = from;
+        fromCityAnswer.className = "answers";
+
+        fromCityContainer.appendChild(fromCityTitle);
+        fromCityContainer.appendChild(fromCityAnswer);
+
+        // to symbol
+
+        const symbolContainer = document.createElement("div");
+        symbolContainer.innerText = "→";
+
+        // to city
+
+        const toCityContainer = document.createElement("div");
+
+        const toCityTitle = document.createElement("span");
+        toCityTitle.innerText = "To: ";
+        toCityTitle.className = "titles";
+
+        const toCityAnswer = document.createElement("span");
+        toCityAnswer.innerText = to;
+        toCityAnswer.className = "answers";
+
+        toCityContainer.appendChild(toCityTitle);
+        toCityContainer.appendChild(toCityAnswer);
+
+        // travellers
+
+        const travellersCountContainer = document.createElement("div");
+
+        const travellersTitle = document.createElement("span");
+        travellersTitle.innerText = "Travellers: ";
+        travellersTitle.className = "titles";
+
+        const travellersAnswer = document.createElement("span");
+        travellersAnswer.innerText = count;
+        travellersAnswer.className = "answers";
+
+        travellersCountContainer.appendChild(travellersTitle);
+        travellersCountContainer.appendChild(travellersAnswer);
+
+        // Date of travel
+
+        const traveldateContainer = document.createElement("div");
+
+        const traveldateTitle = document.createElement("span");
+        traveldateTitle.innerText = "Date of travel: ";
+        traveldateTitle.className = "titles";
+
+        const traveldateAnswer = document.createElement("span");
+        traveldateAnswer.innerText = date;
+        traveldateAnswer.className = "answers";
+
+        traveldateContainer.appendChild(traveldateTitle);
+        traveldateContainer.appendChild(traveldateAnswer);
+
+        // appending info to parent
+
+        userSearchInfoContainer.appendChild(fromCityContainer);
+        userSearchInfoContainer.appendChild(symbolContainer);
+        userSearchInfoContainer.appendChild(toCityContainer);
+        userSearchInfoContainer.appendChild(travellersCountContainer);
+        userSearchInfoContainer.appendChild(traveldateContainer);
+
+        // appending childs to result info container
+
+        resultInfoContainer.appendChild(resultHeadContainer);
+        resultInfoContainer.appendChild(userSearchInfoContainer);
+    }
+
+
+    function flightdata(flight) {
+
+        for (const i of flight) {
+
+
+            // flight search
+
+            const flightContainer = document.createElement("div");
+            flightContainer.className = "flights-container";
+
+
+            // flight number
+
+            const flightNumberContainer = document.createElement("div");
+            flightNumberContainer.className = "flight-details";
+
+            const flightNumberTitle = document.createElement("span");
+            flightNumberTitle.innerText = "Flight number";
+            flightNumberTitle.className = "titles";
+
+            const flightNumberAnswer = document.createElement("span");
+            flightNumberAnswer.innerText = i.f_no;
+            flightNumberAnswer.className = "answers";
+
+            flightNumberContainer.appendChild(flightNumberTitle);
+            flightNumberContainer.appendChild(flightNumberAnswer);
+
+            // flight dep
+
+            const flightDepContainer = document.createElement("div");
+            flightDepContainer.className = "flight-details";
+
+            const flightDepTitle = document.createElement("span");
+            flightDepTitle.innerText = "Dep time";
+            flightDepTitle.className = "titles";
+
+            const flightDepAnswer = document.createElement("span");
+            flightDepAnswer.innerText = i.f_dt;
+            flightDepAnswer.className = "answers";
+
+            flightDepContainer.appendChild(flightDepTitle);
+            flightDepContainer.appendChild(flightDepAnswer);
+
+            // flight arr
+
+            const flightArrContainer = document.createElement("div");
+            flightArrContainer.className = "flight-details";
+
+            const flightArrTitle = document.createElement("span");
+            flightArrTitle.innerText = "Arr time";
+            flightArrTitle.className = "titles";
+
+            const flightArrAnswer = document.createElement("span");
+            flightArrAnswer.innerText = i.f_at;
+            flightArrAnswer.className = "answers";
+
+            flightArrContainer.appendChild(flightArrTitle);
+            flightArrContainer.appendChild(flightArrAnswer);
+
+            // flight price
+
+            const flightPriceContainer = document.createElement("div");
+            flightPriceContainer.className = "flight-details";
+
+            const flightPriceTitle = document.createElement("span");
+            flightPriceTitle.innerText = "Price";
+            flightPriceTitle.className = "titles";
+
+            const flightPriceAnswer = document.createElement("span");
+            flightPriceAnswer.innerText = i.f_price;
+            flightPriceAnswer.className = "answers";
+
+            flightPriceContainer.appendChild(flightPriceTitle);
+            flightPriceContainer.appendChild(flightPriceAnswer);
+
+            // book flight
+
+            const flightBookBtnContainer = document.createElement("div");
+            flightBookBtnContainer.className = "flight-details";
+
+            const flightBookBtn = document.createElement("input");
+            flightBookBtn.type = "submit";
+            flightBookBtn.value = "Book now";
+            flightBookBtn.className = "choose-flight";
+            flightBookBtn.onclick = function () { passengerDetails(from, to, date, count, i.f_no, i.f_dt, i.f_at, i.f_price) }
+
+            flightBookBtnContainer.appendChild(flightBookBtn);
+
+            // appending to flight parent
+
+            flightContainer.appendChild(flightNumberContainer)
+            flightContainer.appendChild(flightDepContainer);
+            flightContainer.appendChild(flightArrContainer);
+            flightContainer.appendChild(flightPriceContainer);
+            flightContainer.appendChild(flightBookBtnContainer);
+
+            parentContainer.appendChild(flightContainer);
+        }
+    }
+
+    function invalidflight(invalid) {
+        const invalidDetailsContainer = document.createElement("div");
+        invalidDetailsContainer.className = "invalid-details";
+
+        const invalidText = document.createElement("div");
+        invalidText.className = "invalid-text";
+        invalidText.innerText = "OOPS ! No flights found on this route";
+
+        const invalidQuote = document.createElement("div");
+        invalidQuote.className = "invalid-quote";
+        invalidQuote.innerText = "Flights for these routes are opening shortly"
+
+        const reload = document.createElement("a");
+        reload.className = "reload-btn";
+        reload.innerText = "Modify Search";
+        reload.href = "./index.html"
+
+        invalidDetailsContainer.appendChild(invalidText);
+        invalidDetailsContainer.appendChild(invalidQuote);
+        invalidDetailsContainer.appendChild(reload);
+
+        parentContainer.appendChild(invalidDetailsContainer);
+    }
+
+    // footer container
+
+    const footerContainer = document.createElement("footer");
+    footerContainer.className = "footer-container";
+
+    const footerTextContainer = document.createElement("div");
+    footerTextContainer.innerHTML = "&COPY; Copyright 2022 IndiGo. All rights reserved."
+
+    // appending all to parent
+
+    parentContainer.appendChild(headerContainer);
+    parentContainer.appendChild(resultInfoContainer);
+
+    if (from + to == "ChennaiCoimbatore") {
+        flightdata(route_401);
+    }
+    else if (from + to == "DelhiBangalore") {
+        flightdata(route_411);
+    }
+    else {
+        invalidflight(null);
+    }
+
+
+    footerContainer.appendChild(footerTextContainer);
+    parentContainer.appendChild(footerContainer);
+
+    viewportContainer.appendChild(parentContainer);
+
+
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "30%";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+    }
+
+    userdata(from, to, date, count);
+
+    // console.log("@TS Origin", param.get('fcity'));
+    // console.log("@TS Arrival", param.get('lcity'));
+    // console.log("@TS Date", param.get("tdate"));
+    // console.log("@TS Count", param.get("pcount"));
+
+    // var button = document.getElementById("pdfButton");
+    // var makepdf = document.getElementById("viewport");
+    // button.addEventListener("click", function () {
+    //     var mywindow = window.open("", "PRINT", "height=600,width=600");
+    //     mywindow.document.write(makepdf.innerHTML);
+    //     mywindow.document.close();
+    //     mywindow.focus();
+    //     mywindow.print();
+    //     return true;
+    // });
+
+    function passengerDetails(from, to, date, count, f_no, f_dt, f_at, f_price) {
+        const flightSearchURL = `./passenger.html?fromCity=${from}&toCity=${to}&onDate=${date}&count=${count}&flightNumber=${f_no}&flightDep=${f_dt}&flightArr=${f_at}&flightPrice=${f_price}`;
+        // console.log("@TS flightSearchURL: ", flightSearchURL);
+
+        window.location = flightSearchURL;
+        // location.href = "./passenger.html";
+    }
+
+
+
+</script>
+
+</html>
