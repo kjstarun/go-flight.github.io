@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passenger Details</title>
+    <style>
+        * {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            /* height: 100%; */
+            /* background-color: rgb(232, 233, 241); */
+            background-color: rgb(37, 57, 150);
+        }
+
+        .parent-container {
+            /* background-color: bisque; */
+            height: auto;
+            background-color: rgb(37, 57, 150);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-container {
+            /* background-color: black; */
+            position: sticky;
+            top: 0;
+            background-color: rgb(37, 57, 150);
+            height: 100px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .main-logo-container{
+            margin-left: 25px;
+        }
+
+        .passenger-travel-info-container {
+            position: sticky;
+            /* margin-top: 100px; */
+            top: 80px;
+            height: 100px;
+            /* background-color: aqua; */
+            background-color: #fff;
+            /* background-color: rgb(37, 57, 150); */
+            color: #000;
+            width: 80%;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .passenger-quote {
+            padding: 10px;
+            font-size: 20px;
+        }
+
+        .search-info-container {
+            /* background-color: black; */
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            height: 125px;
+            width: 80%;
+            border-radius: 15px;
+        }
+
+        .titles {
+            font-weight: lighter;
+            font-size: 15px;
+        }
+
+        .answers {
+            font-weight: bolder;
+            font-size: 17px;
+        }
+
+        .flights-container {
+            /* background-color: rgba(255, 255, 255, 0.872); */
+            background-color: #fff;
+            width: 80%;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .flight-info-container {
+            /* background-color: rgba(255, 255, 255, 0.872); */
+            background-color: aqua;
+            width: 80%;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .flight-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .passenger-input-container {
+            background-color: rgba(255, 255, 255, 0.872);
+            width: 80%;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+            padding: 15px 0;
+            gap: 10px;
+        }
+
+        .passenger-details {
+            /* background-color: blue; */
+            display: flex;
+            flex-direction: row;
+            gap: 150px;
+            
+        }
+
+        .passenger-number-container {
+            color: darkblue;
+            padding-bottom: 10px;
+        }
+
+        input {
+            padding: 10px;
+            border: none;
+            outline: none;
+            border-bottom: 1px solid grey;
+        }
+
+        .confirm-passenger-button {
+            background-color: #fff;
+            color: darkblue;
+            font-weight: bolder;
+            font-size: 15px;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            padding: 10px 30px;
+        }
+
+        .confirm-passenger-button:hover {
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.605);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="viewport">
+        <!--  <div class="parent-container">
+            <header class="header-container">
+                <span><img
+                        src="https://upload.wikimedia.org/wikipedia/commons/archive/6/69/20120303141352%21IndiGo_Airlines_logo.svg"
+                        height="80px">
+                </span>
+            </header>
+
+            <div class="passenger-travel-info-container">
+                <p class="passenger-quote">Please fill the passenger details</p>
+                <div class="search-info-container">
+                    <div>
+                        <span class="titles">From:</span>
+                        <span class="answers">Chennai</span>
+                    </div>
+                    <div>→</div>
+                    <div>
+                        <span class="titles">To:</span>
+                        <span class="answers">Coimbatore</span>
+                    </div>
+                    <div>
+                        <span class="titles">Travellers:</span>
+                        <span class="answers">5</span>
+                    </div>
+                    <div>
+                        <span class="titles">Date of travel:</span>
+                        <span class="answers">2022-09-30</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flight-info-container">
+                <div class="flight-details">
+                    <span class="titles">Flight number</span>
+                    <span class="answers">6E7047</span>
+                </div>
+                <div class="flight-details">
+                    <span class="titles">Dep</span>
+                    <span class="answers">16.00</span>
+                </div>
+                <div class="flight-details">
+                    <span class="titles">Arr</span>
+                    <span class="answers">17.00</span>
+                </div>
+                <div class="flight-details">
+                    <span class="titles">Price</span>
+                    <span class="answers">3789</span>
+                </div>
+            </div>
+            <div class="passenger-input-container">
+                <p>Passenger 1</p>
+                <form class="passenger-details">
+                    <div class="passenger-name">
+                        <input type="text" placeholder="Name" id="p_name" required>
+                    </div>
+                    <div class="passenger-age">
+                        <input type="number" placeholder="Age" id="p_age">
+                    </div>
+                    <div class="passenger-contact">
+                        <input type="text" placeholder="contact" id="p_contact">
+                    </div>
+                    <input type="submit">
+                </form>
+                <div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+
+
+
+    <script>
+        const data = window.location.search;
+        // alert(data);
+
+        const param = new URLSearchParams(data);
+
+        const fromCity = param.get("fromCity");
+        const toCity = param.get("toCity");
+        const onDate = param.get("onDate");
+        const count = param.get("count");
+        const flightNumber = param.get("flightNumber");
+        const flightDep = param.get("flightDep");
+        const flightArr = param.get("flightArr");
+        const flightPrice = param.get("flightPrice");
+
+        // console.log(fromCity);
+        // console.log(toCity);
+        // console.log(onDate);
+        // console.log(count);
+        // console.log(flightNumber);
+        // console.log(flightDep);
+        // console.log(flightArr);
+        // console.log(flightPrice);
+
+
+
+        const viewportContainer = document.getElementById("viewport");
+
+        // creating the parent container
+
+        const parentContainer = document.createElement("div");
+        parentContainer.className = "parent-container";
+
+        // creating the header container
+
+        const headerContainer = document.createElement("header");
+        headerContainer.className = "header-container";
+
+        const mainLogoContainer = document.createElement("img");
+        mainLogoContainer.className = "main-logo-container";
+        mainLogoContainer.src = "https://upload.wikimedia.org/wikipedia/commons/archive/6/69/20120303141352%21IndiGo_Airlines_logo.svg";
+        mainLogoContainer.style.height = "80px";
+        headerContainer.appendChild(mainLogoContainer);
+
+        parentContainer.appendChild(headerContainer);
+
+
+        // passenger travel info container
+
+        const passengerTravelInfoContainer = document.createElement("div");
+        passengerTravelInfoContainer.className = "passenger-travel-info-container";
+
+        const passengerHeadContainer = document.createElement("p");
+        passengerHeadContainer.className = "passenger-quote";
+        passengerHeadContainer.innerText = "Please fill the pasenger details.";
+
+        const searchInfoContainer = document.createElement("div");
+        searchInfoContainer.className = "search-info-container";
+
+        function userSearchdata(from, to, date, count) {
+
+            // from city
+
+            const fromCityContainer = document.createElement("div");
+
+            const fromCityTitle = document.createElement("span");
+            fromCityTitle.innerText = "From: ";
+            fromCityTitle.className = "titles";
+
+            const fromCityAnswer = document.createElement("span");
+            fromCityAnswer.innerText = from;
+            fromCityAnswer.className = "answers";
+
+            fromCityContainer.appendChild(fromCityTitle);
+            fromCityContainer.appendChild(fromCityAnswer);
+
+            // to symbol
+
+            const symbolContainer = document.createElement("div");
+            symbolContainer.innerText = "→";
+
+            // to city
+
+            const toCityContainer = document.createElement("div");
+
+            const toCityTitle = document.createElement("span");
+            toCityTitle.innerText = "To: ";
+            toCityTitle.className = "titles";
+
+            const toCityAnswer = document.createElement("span");
+            toCityAnswer.innerText = to;
+            toCityAnswer.className = "answers";
+
+            toCityContainer.appendChild(toCityTitle);
+            toCityContainer.appendChild(toCityAnswer);
+
+            // travellers
+
+            const travellersCountContainer = document.createElement("div");
+
+            const travellersTitle = document.createElement("span");
+            travellersTitle.innerText = "Travellers: ";
+            travellersTitle.className = "titles";
+
+            const travellersAnswer = document.createElement("span");
+            travellersAnswer.innerText = count;
+            travellersAnswer.className = "answers";
+
+            travellersCountContainer.appendChild(travellersTitle);
+            travellersCountContainer.appendChild(travellersAnswer);
+
+            // Date of travel
+
+            const traveldateContainer = document.createElement("div");
+
+            const traveldateTitle = document.createElement("span");
+            traveldateTitle.innerText = "Date of travel: ";
+            traveldateTitle.className = "titles";
+
+            const traveldateAnswer = document.createElement("span");
+            traveldateAnswer.innerText = date;
+            traveldateAnswer.className = "answers";
+
+            traveldateContainer.appendChild(traveldateTitle);
+            traveldateContainer.appendChild(traveldateAnswer);
+
+            // appending info to parent
+
+            searchInfoContainer.appendChild(fromCityContainer);
+            searchInfoContainer.appendChild(symbolContainer);
+            searchInfoContainer.appendChild(toCityContainer);
+            searchInfoContainer.appendChild(travellersCountContainer);
+            searchInfoContainer.appendChild(traveldateContainer);
+
+            // appending childs to result info container
+
+            passengerTravelInfoContainer.appendChild(passengerHeadContainer);
+            passengerTravelInfoContainer.appendChild(searchInfoContainer);
+
+            parentContainer.appendChild(passengerTravelInfoContainer);
+
+        }
+
+        function flightSearchdata(flightNumber, flightDep, flightArr, flightPrice) {
+
+            // flight search
+
+            const flightContainer = document.createElement("div");
+            flightContainer.className = "flights-container";
+
+
+            // flight number
+
+            const flightNumberContainer = document.createElement("div");
+            flightNumberContainer.className = "flight-details";
+
+            const flightNumberTitle = document.createElement("span");
+            flightNumberTitle.innerText = "Flight number";
+            flightNumberTitle.className = "titles";
+
+            const flightNumberAnswer = document.createElement("span");
+            flightNumberAnswer.innerText = flightNumber;
+            flightNumberAnswer.className = "answers";
+
+            flightNumberContainer.appendChild(flightNumberTitle);
+            flightNumberContainer.appendChild(flightNumberAnswer);
+
+            // flight dep
+
+            const flightDepContainer = document.createElement("div");
+            flightDepContainer.className = "flight-details";
+
+            const flightDepTitle = document.createElement("span");
+            flightDepTitle.innerText = "Dep time";
+            flightDepTitle.className = "titles";
+
+            const flightDepAnswer = document.createElement("span");
+            flightDepAnswer.innerText = flightDep;
+            flightDepAnswer.className = "answers";
+
+            flightDepContainer.appendChild(flightDepTitle);
+            flightDepContainer.appendChild(flightDepAnswer);
+
+            // flight arr
+
+            const flightArrContainer = document.createElement("div");
+            flightArrContainer.className = "flight-details";
+
+            const flightArrTitle = document.createElement("span");
+            flightArrTitle.innerText = "Arr time";
+            flightArrTitle.className = "titles";
+
+            const flightArrAnswer = document.createElement("span");
+            flightArrAnswer.innerText = flightArr;
+            flightArrAnswer.className = "answers";
+
+            flightArrContainer.appendChild(flightArrTitle);
+            flightArrContainer.appendChild(flightArrAnswer);
+
+            // flight price
+
+            const flightPriceContainer = document.createElement("div");
+            flightPriceContainer.className = "flight-details";
+
+            const flightPriceTitle = document.createElement("span");
+            flightPriceTitle.innerText = "Price";
+            flightPriceTitle.className = "titles";
+
+            const flightPriceAnswer = document.createElement("span");
+            flightPriceAnswer.innerText = flightPrice;
+            flightPriceAnswer.className = "answers";
+
+            flightPriceContainer.appendChild(flightPriceTitle);
+            flightPriceContainer.appendChild(flightPriceAnswer);
+
+            // appending to flight parent
+
+            flightContainer.appendChild(flightNumberContainer)
+            flightContainer.appendChild(flightDepContainer);
+            flightContainer.appendChild(flightArrContainer);
+            flightContainer.appendChild(flightPriceContainer);
+
+            parentContainer.appendChild(flightContainer);
+        }
+
+        function submitData(){
+
+        }
+
+        function passenger(count) {
+
+            for (let i = 1; i <= count; i++) {
+
+
+                const passengerInputContainer = document.createElement("div");
+                passengerInputContainer.className = "passenger-input-container";
+
+                const passengerNumberContainer = document.createElement("p");
+                passengerNumberContainer.className = "passenger-number-container";
+                passengerNumberContainer.innerText = "Passenger "
+                const numberContainer = document.createElement("span");
+                numberContainer.innerText = i;
+
+                passengerNumberContainer.appendChild(numberContainer);
+                passengerInputContainer.appendChild(passengerNumberContainer);
+
+                // passenger details
+
+                const passengerDetailsContainer = document.createElement("form");
+                passengerDetailsContainer.className = "passenger-details";
+
+                // passenger name
+
+                const passengerNameContainer = document.createElement("div");
+                passengerNameContainer.className = "passenger-name";
+
+                const passengerName = document.createElement("input");
+                passengerName.type = "text";
+                passengerName.placeholder = "Passenger name";
+                passengerName.id = "name" + i;
+                passengerName.required;
+
+                passengerNameContainer.appendChild(passengerName);
+
+                // passenger age
+
+                const passengerAgeContainer = document.createElement("div");
+                passengerAgeContainer.className = "passenger-age";
+
+                const passengerAge = document.createElement("input");
+                passengerAge.type = "number";
+                passengerAge.placeholder = "Passenger Age";
+                passengerAge.id = "age" + i;
+                passengerAge.min = 1;
+                passengerAge.max = 75;
+                passengerAge.style.width = "175px";
+                passengerAge.required;
+
+                passengerAgeContainer.appendChild(passengerAge);
+
+                // passenger contact
+
+                const passengerContactContainer = document.createElement("div");
+                passengerContactContainer.className = "passenger-contact";
+
+                const passengerContact = document.createElement("input");
+                passengerContact.type = "text";
+                passengerContact.placeholder = "Passenger Contact";
+                passengerContact.id = "contact" + i;
+                passengerContact.required;
+
+                passengerContactContainer.appendChild(passengerContact);
+
+                passengerDetailsContainer.appendChild(passengerNameContainer);
+                passengerDetailsContainer.appendChild(passengerAgeContainer);
+                passengerDetailsContainer.appendChild(passengerContactContainer);
+
+                passengerInputContainer.appendChild(passengerDetailsContainer);
+                parentContainer.appendChild(passengerInputContainer);
+
+            }
+
+            const confirmPassengerButton = document.createElement("input");
+            confirmPassengerButton.className = "confirm-passenger-button";
+            confirmPassengerButton.type = "button";
+            confirmPassengerButton.value = "Submit";
+            confirmPassengerButton.onclick = function() {submitData()}
+
+            parentContainer.appendChild(confirmPassengerButton);
+
+        }
+
+        userSearchdata(fromCity, toCity, onDate, count);
+
+        flightSearchdata(flightNumber, flightDep, flightArr, flightPrice);
+
+        passenger(count);
+
+
+        viewportContainer.appendChild(parentContainer);
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
