@@ -33,3 +33,18 @@ Redirected UI:
 
 The below feature will be continued in the Version - 2 later.
 - On clicking the book now button, the input form for passenger details will be displayed.
+
+
+
+Updated with current functionalities:
+
+The hamburger menu is working only on the First UI (without functionalities)
+
+ Possible testcases:
+ - Flight search between: (case-sensitive).
+      - Chennai to Coimbatore.
+      - Delhi to Bangalore.
+ - This will show the flight results and proceed further.
+ - If the search is correct, it will show the flight search results of the data and by clicking on the flight,
+ - The page redirects to flight page and on that the user can see the flight details and the passeneger input forms as per the count of passengers given by the user.
+ - If the search is not correct, it will throw a message in the UI and clicking by a button will redirect you again you to the search page.
